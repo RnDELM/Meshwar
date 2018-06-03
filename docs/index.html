@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Meshwar</title>
+
+  <meta name="viewport" content="initial-scale=1.0">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Bootstrap -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <!-- Application -->
+
+
+
+		<!-- animate css -->
+		<link rel="stylesheet" href="css/animate.min.css">
+		<!-- bootstrap css -->
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<!-- font-awesome -->
+		<link rel="stylesheet" href="css/font-awesome.min.css">
+		<!-- google font -->
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,700,800' rel='stylesheet' type='text/css'>
+
+		<!-- custom css -->
+    <link href="css/app.css" rel="stylesheet">
+
+</head>
+<body>
+
+<!-- start navigation -->
+<nav class="navbar navbar-default navbar-fixed-top templatemo-nav" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="icon icon-bar"></span>
+        <span class="icon icon-bar"></span>
+        <span class="icon icon-bar"></span>
+      </button>
+      <a href="#" class="navbar-brand">MESHWAR</a>
+    </div>
+    <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav navbar-right text-uppercase">
+        <!-- <li><a href="#home">Home</a></li>
+        <li><a href="#feature">Features</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#download">Download</a></li> -->
+        <li><a href="#" data-toggle="modal" data-target="#requestDriver" class="BD">Become A Driver</a></li>
+        <li><a href="#" data-toggle="modal" data-target="#addDriver" style="color: gray;">Add a Driver</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<!-- Modal add a driver  -->
+<div class="modal fade" id="addDriver" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Add a New Driver</h4>
+      </div>
+      <div class="modal-body">
+
+        <div class="row">
+          <div class="col-lg-12">
+            <form>
+              <div class="form-group">
+                <label for="wallet_addr">Enter Driver Wallet Address</label>
+                <input type="text" class="form-control" id="wallet_addr" placeholder="Enter Wallet address">
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary btn-success" data-dismiss="modal" onclick="App.becomeDriver(); return false;">Submit</button>
+        <button type="button" class="btn" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End of modal adding a driver  -->
+
+<!-- Modal form to request a ride-->
+
+<div class="modal fade" id="requestDriver" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Become a Driver</h4>
+      </div>
+      <div class="modal-body">
+
+        <div class="row">
+          <div class="col-lg-12">
+            <form>
+              <div class="form-group">
+                <label for="Driver_Name">Name</label>
+                <input type="text" class="form-control" id="Driver_Name" placeholder="Enter your name">
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary btn-success" data-dismiss="modal" onclick="App.requestDriver(); return false;">Submit</button>
+        <button type="button" class="btn" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End of request to become a driver  -->
+
+<div id="spinner"  class=".col-xs-6 .col-md-4">
+  <div class="cube1"></div>
+  <div class="cube2"></div>
+  <div class="waitingForDriver"><h5>LOOKING FOR A DRIVER</h5></div>
+</div>
+
+<!-- start search -->
+    <div id="search" class="container">
+      <div style="display: show;">
+        <div class="row-lg-12">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-lg-12">
+                  <form class="has-feedback">
+                    <div class="form-group">
+                      <input type="text" class="form-control" id="Rider_Name" placeholder="Enter your name">
+                    </div>
+                    <div class="form-group">
+                      <input type="text" class="form-control vresize" id="ride_Pickup" placeholder="Enter Pickup Location" maxlength="255">
+                    </div>
+                    <div class="form-group">
+                    <input type="text" class="form-control vresize" id="ride_destination" placeholder="Enter Destination" maxlength="255">
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="panel-footer">
+                      <button type="button"
+                      class="btn btn-primary btn-success button-sub"
+                      onclick="App.requestRide(); return false;">Find my Ride</button>
+
+                      <div id="right-panel">
+                        <span id="total"></span>
+                      </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- END SEARCH  -->
+
+    <div id="map"></div>
+
+    <div id="ridesRow" class="row">
+      <!-- Rides LOAD HERE -->
+    </div>
+
+
+      <div id="rideTemplate" style="display: none;">
+        <div class="row-lg-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title"></h3>
+            </div>
+            <div class="panel-body">
+              <strong>Pickup</strong>: <span class="ride-Pickup"></span><br/>
+              <strong>Destination</strong>: <span class="ride-destination"></span><br/>
+              <strong>Price (ETH)</strong>: <span class="ride-price"></span><br/>
+              <strong>Requested by</strong>: <span class="rider"></span><br/>
+              <strong>Driver</strong>: <span class="driver"></span><br/>
+            </div>
+            <div class="panel-footer">
+              <div class="pull-right status">
+              <span></span>
+            </div>
+              <button
+              type="button"
+              class="btn btn-primary btn-success btn-accept"
+              onclick="App.acceptRide(); return false;">Accept</button>
+              <!-- startTrip button -->
+              <button
+              type="button"
+              class="btn btn-primary btn-success btn-startTrip"
+              onclick="App.startTrip(); return false;">Strart Trip</button>
+                      <!-- payForRide button -->
+              <!-- <button
+              type="button"
+              class="btn btn-primary btn-danger btn-end"
+              onclick="App.endTrip(); return false;">END TRIP</button> -->
+
+              <button
+              type="button"
+              class="btn btn-primary btn-success btn-pay"
+              onclick="App.payForRide(); return false;">Pay</button>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAcsnIT1DwFg1NTUhe8x9wXo2wP7PcAFKc&language=en&region=SA&&libraries=places&callback=initMap"
+    async defer></script>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/web3.min.js"></script>
+    <script src="js/truffle-contract.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/googleMaps.js"></script>
+
+  </body>
+</html>
